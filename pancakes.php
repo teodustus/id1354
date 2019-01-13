@@ -1,4 +1,5 @@
 <?php include_once'header.php'?>
+
 </div>
     <div id="main">
       <h2>American Pancakes</h2>
@@ -23,15 +24,11 @@
           <li>Heat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot</li>
         </ol>
         <br>
-        <h2>Comments for this dish</h2>
       </div>
-    </div>
-    <div class="background">
-    	<h2>Melissa Hornston 27 Okt 2017 22:31:44</h2>
-      <div class="transbox">
-        <p>TYVM!!</p>
       </div>
-    </div>
+
+     
+     <?php include'comment.php' ?>
     <?php include_once'footer.php' ?>
  </body>
 </html>

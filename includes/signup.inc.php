@@ -5,21 +5,21 @@
 		//Then we include the database connection
 		include_once 'dbh.inc.php';
 		//And we get the data from the signup form
-		$first = $_POST['first'];
-		$last = $_POST['last'];
+		$firstName = $_POST['first'];
+		#$last = $_POST['last'];
 		$email = $_POST['email'];
-		$uid = $_POST['uid'];
-		$pwd = $_POST['pwd'];
+		#$uid = $_POST['uid'];
+		$password = $_POST['pwd'];
 
 		//Error handlers
 		//Error handlers are important to avoid any mistakes the user might have made when filling out the form!
 		//Check for empty fields
-		if (empty($first) || empty($last) || empty($email) || empty($uid) || empty($pwd)) {
+		if (empty($firstName) || empty($email) || empty($password)) {
 			header("Location: ../signup.php?signup=empty");
 			exit();
 		} else {
 			//Check if input characters are valid
-			if (!preg_match("/^[a-zA-Z]*$/", $first) || !preg_match("/^[a-zA-Z]*$/", $last)) {
+			if (!preg_match("/^[a-zA-Z]*$/", $firstName)) {
 				header("Location: ../signup.php?signup=invalid");
 				exit();
 			} else {
@@ -29,7 +29,7 @@
 					exit();
 				} else {
 					//Check if username exists USING PREPARED STATEMENTS
-					$sql = "SELECT * FROM users WHERE user_uid=?";
+					$sql = "SELECT * FROM users WHERE email=?";
 					//Create a prepared statement
 					$stmt = mysqli_stmt_init($conn);
 					//Check if prepared statement fails
@@ -39,7 +39,7 @@
 					} else {
 						//Bind parameters to the placeholder
 						//The "s" means we are defining the placeholder as a string
-						mysqli_stmt_bind_param($stmt, "s", $uid);
+						mysqli_stmt_bind_param($stmt, "s", $email);
 
 						//Run query in database
 						mysqli_stmt_execute($stmt);
@@ -52,10 +52,10 @@
 							exit();
 						} else {
 							//Hashing the password
-							$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+							$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
 							//Insert the user into the database
-							$sql = "INSERT INTO users (user_first, user_last, user_email, user_uid, user_pwd)
-							VALUES (?, ?, ?, ?, ?);";
+							$sql = "INSERT INTO users (firstName, email, password)
+							VALUES (?, ?, ?);";
 							//Create second prepared statement
 							$stmt2 = mysqli_stmt_init($conn);
 
@@ -65,7 +65,7 @@
 							    exit();
 							} else {
 								//Bind parameters to the placeholder
-								mysqli_stmt_bind_param($stmt2, "sssss", $first, $last, $email, $uid, $hashedPwd);
+								mysqli_stmt_bind_param($stmt2, "sss", $firstName, $email, $hashedPwd);
 
 								//Run query in database
 								mysqli_stmt_execute($stmt2);
