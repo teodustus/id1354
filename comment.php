@@ -2,6 +2,7 @@
 include_once('dbh.inc.php');
 include_once('header.php');
 $id= $_SESSION['loggedIn'];
+include_once('comment_handler.php');
 ?>
 
 <form method='post' action="comment.php" name="commentForm">
@@ -9,7 +10,7 @@ $id= $_SESSION['loggedIn'];
   				<textarea id="text" name="text"></textarea><br>
   				<input type='button' value="Comment" id="comment"></button>
   			</form>
-
+        <p id="commentstatus"></p>
 <script type="text/javascript">
 
  $(document).ready(function () {
@@ -32,7 +33,11 @@ $id= $_SESSION['loggedIn'];
         comment:1,
         textPHP: text,
         userIdPHP: sessionID
-        }
+        },
+        success: function(response){
+          $("#commentstatus").html(response);
+        },
+        dataType: 'text'
     }
   )
         }
