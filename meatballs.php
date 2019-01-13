@@ -43,6 +43,10 @@
         <p>Fantastic recipe! 5/5 toasters!</p>
     </div>
   </div>
-  <?php include_once'footer.php' ?>
+
+
+    <div class="footer">
+      <p>Copyleft&copy; GurkrixloL 'n' teodustus yao</p>
+    </div>
  </body>
 </html>

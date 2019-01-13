@@ -12,6 +12,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type ="text/css" href="Style2.css"/>
     <script type="text/javascript" src="main.js"></script>
+     <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+  </script>
   </head>
 <body>
     <div id="nav">
@@ -30,20 +35,14 @@
       </div>
       <div class="loginhandler">
         <?php
-          if(isset($_SESSION['u_id'])){
+          if(isset($_SESSION['loggedIn'])){
             echo '<form action="includes/logout.inc.php" method="POST">
 							<button type="submit" name="submit">Logout</button>
 						</form>';
           } else {
-						echo '<form action="includes/login.inc.php" method="POST">
-							<input type="text" name="uid" placeholder="Username/e-mail" required>
-							<input type="password" name="pwd" placeholder="password" required	>
-              <button type="submit" name="submit">Login</button>
-              
-            </form>
-              <form>
-                <button style="float:right;" formaction="signup.php">Sign up!</button>
-              </form>';
+            echo '<a href="signup.php">Become a member!<a/> <br>
+            <a href="login.php">Login!<a/>';
+            
           }
           ?>
       </div>
