@@ -27,11 +27,9 @@
       </div>
       </div>
 
-     <form method='post' action="comment.php" name="commentForm">
-  			<!-- <input type='hidden' name='uid' value='$_SESSION[u_uid]'> -->
-  				<textarea id="text" name="text"></textarea><br>
-  				<input type='button' value="Comment" id="comment"></button>
-  			</form>
+     
+     <?php if(isset($_SESSION['loggedIn']))
+     include'comment.php' ?>
     <?php include_once'footer.php' ?>
  </body>
 </html>

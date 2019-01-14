@@ -6,7 +6,7 @@
       exit();
     }
   if (isset($_POST['login'])){
-    $connection = new mysqli('localhost', 'root', 'root', 'loginTutorial');
+    $connection = new mysqli('localhost', 'root', 'root', 'tastyApplikationer');
     
     
     $email = $connection->real_escape_string($_POST['emailPHP']);

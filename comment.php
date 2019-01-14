@@ -1,9 +1,10 @@
 <?php 
 include_once('dbh.inc.php');
-include_once('header.php');
 $id= $_SESSION['loggedIn'];
 include_once('comment_handler.php');
 ?>
+
+
 
 <form method='post' action="comment.php" name="commentForm">
   			<!-- <input type='hidden' name='uid' value='$_SESSION[u_uid]'> -->
@@ -11,10 +12,12 @@ include_once('comment_handler.php');
   				<input type='button' value="Comment" id="comment"></button>
   			</form>
         <p id="commentstatus"></p>
+        <div id="display_comment"></div>
 <script type="text/javascript">
 
  $(document).ready(function () {
       console.log('page ready');
+      loadComment();
       $("#comment").on('click', function (){
         // var text = $("#text").val();
         var text = document.forms["commentForm"]["text"].value;
@@ -23,11 +26,11 @@ include_once('comment_handler.php');
 
         if(text == "")
         alert("No comment :>");
-
+        
         else{
   $.ajax(
     {
-      url: "comment.php",
+      url: "comment_handler.php",
       method: 'POST',
       data:{
         comment:1,
@@ -40,8 +43,30 @@ include_once('comment_handler.php');
         dataType: 'text'
     }
   )
+  $(document.forms["commentForm"]["text"]).val('');
+  loadComment();
         }
 
       });
 });
+
+
+function loadComment(){
+$.ajax({
+  url:"get_comment.php",
+   method:"POST",
+   success:function(response)
+   {
+    $('#display_comment').html(response);
+   }
+  }
+)}
 </script>
+
+<div id="all_comments">
+	<div class="comment_div"> 
+	  <p class="name">Posted By:<?php echo $name;?></p>
+      <p class="comment"><?php echo $comment;?></p>	
+	  <p class="time"><?php echo $time;?></p>
+	</div>
+    </div>
