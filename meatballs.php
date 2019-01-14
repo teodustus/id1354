@@ -34,16 +34,11 @@
              <li>Add the meatballs back to the skillet and simmer for another 1-2 minutes. Serve with mashed potatoes, lingonberries and pickled cucumber-slices.</li>
           </ol>
         </div>
-            <h2>Comments for this dish</h2>
+            
     </div>
 
-    <div class="background">
-    	<h5>Gordon Ramsay 27 Okt 2017 22:31:44</h5>
-      <div class="transbox">
-        <p>Fantastic recipe! 5/5 toasters!</p>
-    </div>
-  </div>
-
+  <?php if(isset($_SESSION['loggedIn']))
+     include'comment.php' ?>
 
     <div class="footer">
       <p>Copyleft&copy; GurkrixloL 'n' teodustus yao</p>

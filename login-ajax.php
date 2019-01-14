@@ -1,10 +1,10 @@
 <?php
     session_start();
 
-    if(isset($_SESSION['loggedIn'])){
-      header('Location: index.php');
-      exit();
-    }
+    // if(isset($_SESSION['loggedIn'])){
+    //   header('Location: index.php');
+    //   exit();
+    // }
   if (isset($_POST['login'])){
     $connection = new mysqli('localhost', 'root', 'root', 'tastyApplikationer');
     
@@ -21,11 +21,12 @@
     if($data->num_rows > 0){
       $_SESSION['loggedIn'] = $row['id'];
       $_SESSION['email'] = $row['email'];
-      exit($_SESSION['loggedIn']);
+      header("Location: /index.php");
+      exit();
     } else
       exit('Failed, check your inputs');
-
-    exit($email . " = " . $password);
+      header("Location: ../index.php");
+    exit();
   }
   include_once'header.php'
 ?>

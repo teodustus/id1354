@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="reset.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type ="text/css" href="Style2.css"/>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
      <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -24,30 +23,37 @@
     <div class="navbar">
       <a href="index.php">Home</a>
       <a href="kal1.php">Calendar</a>
-      <div class="dropdown">
+      <!-- <div class="dropdown">
         <button class="dropbtn">Recipes
           <i class="fa fa-caret-down"></i>
         </button>
-        <div class="dropdown-content">
+        <div class="dropdown-content">  -->
           <a href="meatballs.php">Meatballs</a>
           <a href="pancakes.php">Pancakes</a>
           <a href="#">TBA</a>
-        </div>
-      </div>
-      <div class="loginhandler">
+      
         <?php
           if(isset($_SESSION['loggedIn'])){
             echo '<form action="includes/logout.inc.php" method="POST">
-							<button type="submit" name="submit">Logout</button>
+							<button type="submit" id="logout" name="submit">Logout</button>
 						</form>';
           } else {
-            echo '<a href="signup.php">Become a member!<a/> <br>
-            <a href="login.php">Login!<a/>';
-            
+            echo '<a href="signup.php">Become a member!<a/> <br>';
+            readfile("/var/www/html/login.php");
           }
           ?>
       </div>
+      <script type="text/javascript"> 
 
+  $("#logout").click(function() {
+            $.ajax({
+                url: 'includes/logout.inc.php',
+                success: function(data){
+                    window.location.href = data;
+                }
+            });
+        });
+        </script>
 
      <!-- <button name="login" style="float:right;margin:16px;">Login</button> -->
       

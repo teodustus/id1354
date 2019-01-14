@@ -8,8 +8,8 @@
 
   <body>
     <form method="post" action="login.php">
-    <input type="text" id="email" placeholder="Email"><br>
-    <input type="password" id="password" placeholder="Password"><br>
+    <input type="text" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
     <input type="button" value="Log in" id="login">
     </form>
     <script
@@ -33,7 +33,7 @@
           else{
    $.ajax(
          {
-           url: "login.php",
+           url: "login-ajax.php",
            method: 'POST', 
            data: {
              login:1,
@@ -41,11 +41,12 @@
              passwordPHP: password
            },
            //Response from function
-           success: function(response){
-             $("#response").html(response);
-
-             if (response.indexOf('success') >= 0)
-             window.location = 'index.php';
+           success: function(data){
+            document.location.reload(true);
+            //  $("#response").html(response);
+            //  window.location.assign("http://localhost/index.php")
+            //  if (response.indexOf('success') >= 0)
+            //  window.location = 'index.php';
            },
            dataType: 'text'
          }

@@ -17,12 +17,19 @@ include_once('comment_handler.php');
 
  $(document).ready(function () {
       console.log('page ready');
-      loadComment();
+      
+      var x = location;
+      if(x == "http://localhost/pancakes.php"){
+        page_var = 2;
+      }else{
+        page_var = 1;
+      }
+      loadComment(page_var);
+      
       $("#comment").on('click', function (){
         // var text = $("#text").val();
         var text = document.forms["commentForm"]["text"].value;
         var sessionID='<?php echo $id;?>';
-        
 
         if(text == "")
         alert("No comment :>");
@@ -35,7 +42,8 @@ include_once('comment_handler.php');
       data:{
         comment:1,
         textPHP: text,
-        userIdPHP: sessionID
+        userIdPHP: sessionID,
+        page: page_var
         },
         success: function(response){
           $("#commentstatus").html(response);
@@ -44,28 +52,74 @@ include_once('comment_handler.php');
     }
   )
   $(document.forms["commentForm"]["text"]).val('');
-  loadComment();
+  loadComment(page_var);
         }
 
       });
 });
 
+function delete_(pid){
+  $.ajax({ 
 
-function loadComment(){
-$.ajax({
+    type: "POST",
+  //  url: "include/post.delete.php",
+   data: "pid="+pid,
+   success: function(){
+   $("#comment-"+pid).remove();
+   }
+
+  });
+}
+
+
+
+function loadComment(page_var){
+$.ajax({ 
   url:"get_comment.php",
    method:"POST",
+   data:{
+        page: page_var
+        },
    success:function(response)
    {
     $('#display_comment').html(response);
    }
   }
 )}
+
+// var isActive = true;
+
+// $().ready(function () {
+//     //EITHER USE A GLOBAL VAR OR PLACE VAR IN HIDDEN FIELD
+//     //IF FOR WHATEVER REASON YOU WANT TO STOP POLLING
+//     pollServer();
+// });
+
+// function pollServer()
+// {
+//     if (isActive)
+//     {
+//         window.setTimeout(function () {
+//             $.ajax({
+//               url:"get_comment.php",
+//               method:"POST",
+//               success:function(respons){
+//             $('#display_comment').html(respons);
+//             pollServer();
+//                 },
+//                 error: function () {
+//                     //ERROR HANDLING
+//                     pollServer();
+//                 }});
+//         }, 2500);
+//     }
+// }
+
 </script>
 
 <div id="all_comments">
 	<div class="comment_div"> 
-	  <p class="name">Posted By:<?php echo $name;?></p>
+	  <p class="name"><?php echo $name;?></p>
       <p class="comment"><?php echo $comment;?></p>	
 	  <p class="time"><?php echo $time;?></p>
 	</div>

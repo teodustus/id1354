@@ -2,7 +2,7 @@
 $host="localhost";
 $username="root";
 $password="root";
-$databasename="loginTutorial";
+$databasename="tastyApplikationer";
 
 $connect=mysql_connect($host,$username,$password);
 $db=mysql_select_db($databasename);
@@ -24,7 +24,7 @@ if(isset($_POST['user_comm']) && isset($_POST['user_name']))
       $time=$row['timestamp'];
   ?>
       <div class="comment_div"> 
-	    <p class="name">Posted By:<?php echo $name;?></p>
+	    <p class="name"><?php echo $name;?></p>
         <p class="comment"><?php echo $text;?></p>	
 	    <p class="time"><?php echo $timestamp;?></p>
 	  </div>

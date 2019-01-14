@@ -1,3 +1,4 @@
+
 body{
     margin:0;
     padding:0;
@@ -71,7 +72,7 @@ html{
   margin-left: 10%;
 }
 
-/*Code for navigation menu.*/
+
 
 nav ul{
     overflow: hidden;
@@ -82,9 +83,9 @@ nav ul{
 
 .navbar {
     overflow: hidden;
-    background-color: 	#f7f3b0; /* Gulaktig*/
+    background-color: 	#f7f3b0; 
     font-family: Arial;
-   /* border-radius: 25px; /* Rundade kanter */
+   
     text-align: center;
   }
 
@@ -118,7 +119,7 @@ nav ul{
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: #a0d8a9; /*Grönaktig*/
+    background-color: #a0d8a9; 
     cursor:pointer;
 
 }
@@ -194,7 +195,7 @@ margin-right: 30%;
 padding-top: 20px;
 }
 
-/*Code for calendar visuals*/
+
 
 caption{
   font-size: 20px;
@@ -225,16 +226,16 @@ caption{
 vertical-align: text-top;
 }
 
-/*For calendar image linking and optimazation*/
+
 .img-link {
-    margin: auto;   /*Keep image centered-H*/
+    margin: auto;   /
     height: 95px;
     width: 95px;
     position: absolute;
     margin:3px 0px 0px 5px;
 }
 
-/* Comment section*/
+
 .background {
   border: 2px solid black;
   margin-left: 30%;
