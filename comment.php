@@ -70,22 +70,38 @@ function delete_(pid){
 
   });
 }
-
-
-
+  //  for(i=0; i<data.length; i++) {
+  //   $('#display_comment').append(data[i]);                      
+  //       }
+// $('#display_comment').append(data);
+//  $('#display_comment').append(data);
+          //  $.each(data,function(i,o){
+          //   $('#display_comment').append(o.recipe);
+          // });
 function loadComment(page_var){
+  var sessionID='<?php echo $id;?>';
 $.ajax({ 
   url:"get_comment.php",
    method:"POST",
    data:{
         page: page_var
         },
-   success:function(response)
-   {
-    $('#display_comment').html(response);
-   }
+        dataType: 'json',
+        success: function(response){          
+       $.each(response, function(i, j){
+        $('#display_comment').append("<p>" + j.user_id + "</p>");
+        $('#display_comment').append("<p>" + j.timestamp + "</p>");
+        $('#display_comment').append("<p>" + j.comment_text + "</p><br><br>");
+        // $('#display_comment').append("<p>" + j.user_id + "</p><br>");
+        // $('#display_comment').append("<p>" + j.user_id + "</p><br>");
+        
+       });
+
+        
+        }
   }
-)}
+ )}
+
 
 // var isActive = true;
 
