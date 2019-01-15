@@ -28,8 +28,7 @@
       </div>
 
      
-     <?php if(isset($_SESSION['loggedIn']))
-     include'comment.php' ?>
+     <?php include'comment.php' ?>
     <?php include_once'footer.php' ?>
  </body>
 </html>

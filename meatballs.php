@@ -37,7 +37,7 @@
             
     </div>
 
-  <?php if(isset($_SESSION['loggedIn']))
+ <?php 
      include'comment.php' ?>
 
     <div class="footer">

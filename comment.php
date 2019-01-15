@@ -13,6 +13,7 @@ include_once('comment_handler.php');
   			</form>
         <p id="commentstatus"></p>
         <div id="display_comment"></div>
+        <div id="delete_btn"></div>
 <script type="text/javascript">
 
  $(document).ready(function () {
@@ -27,6 +28,7 @@ include_once('comment_handler.php');
       loadComment(page_var);
       
       $("#comment").on('click', function (){
+        document.location.reload(true); 
         // var text = $("#text").val();
         var text = document.forms["commentForm"]["text"].value;
         var sessionID='<?php echo $id;?>';
@@ -46,17 +48,40 @@ include_once('comment_handler.php');
         page: page_var
         },
         success: function(response){
+          
           $("#commentstatus").html(response);
         },
         dataType: 'text'
     }
   )
   $(document.forms["commentForm"]["text"]).val('');
-  loadComment(page_var);
+  
         }
 
       });
+
+
+     
+    
 });
+
+function delete_comment(cid){
+        console.log("delete " + cid);
+
+        $.ajax({
+          url: "delete_comment.php",
+          method: 'POST',
+          data: {
+            delete: 1,
+            cidPHP: cid
+          },
+          success: function(response){
+           document.location.reload(true);
+            console.log("delete " + cid);
+          }
+        })
+       
+}
 
 function delete_(pid){
   $.ajax({ 
@@ -80,6 +105,7 @@ function delete_(pid){
           // });
 function loadComment(page_var){
   var sessionID='<?php echo $id;?>';
+  $('#display_comment').empty();
 $.ajax({ 
   url:"get_comment.php",
    method:"POST",
@@ -87,14 +113,27 @@ $.ajax({
         page: page_var
         },
         dataType: 'json',
-        success: function(response){          
+        success: function(response){    
+              
        $.each(response, function(i, j){
-        $('#display_comment').append("<p>" + j.user_id + "</p>");
-        $('#display_comment').append("<p>" + j.timestamp + "</p>");
-        $('#display_comment').append("<p>" + j.comment_text + "</p><br><br>");
+         
+          if(j.user_id == sessionID){
+            
+        // $('#display_comment').append("<p>" + sessionID + "</p>");
+        $('#display_comment').append("<br><p>" + "User ID: " + j.user_id + "</p>");
+        $('#display_comment').append("<p>" + "Time: " + j.timestamp + "</p>");
+        $('#display_comment').append("<p>" + "Comment: " + j.comment_text + "</p>");
+        // $('#display_comment').append("<form class='delete-form' name='delete-form' method='POST' id='delete_btn'><input type='hidden' name='cid' value='" + j.comment_id + "'/><button type='submit'>Delete</button></form><br><br>");
+        $('#display_comment').append("<button onclick='delete_comment(" + j.comment_id + ")' id='" + j.comment_id + "' >" + "Delete comment: "+ "</button>");
         // $('#display_comment').append("<p>" + j.user_id + "</p><br>");
         // $('#display_comment').append("<p>" + j.user_id + "</p><br>");
-        
+          }else{
+        $('#display_comment').append("<br><p>" + "User ID: " + j.user_id + "</p>");
+        $('#display_comment').append("<p>" + "Time: " + j.timestamp + "</p>");
+        $('#display_comment').append("<p>" + "Comment: " + j.comment_text + "</p>");
+          }
+       
+      
        });
 
         
@@ -132,11 +171,3 @@ $.ajax({
 // }
 
 </script>
-
-<div id="all_comments">
-	<div class="comment_div"> 
-	  <p class="name"><?php echo $name;?></p>
-      <p class="comment"><?php echo $comment;?></p>	
-	  <p class="time"><?php echo $time;?></p>
-	</div>
-    </div>
